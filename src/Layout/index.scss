@@ -1,5 +1,18 @@
 @import '~antd/dist/antd.css';
 
+.ant-layout {
+  height: 100%;
+  width: 100%;
+}
+
 .site-layout-background {
   background: #fff;
+}
+.sider-wrap {
+  height: calc(100vh -100px);
+  .ant-menu {
+    background-color: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    opacity: 0.9;
+  }
 }

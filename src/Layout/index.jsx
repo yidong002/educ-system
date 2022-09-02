@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu, Space } from 'antd';
+import { OrderedListOutlined } from '@ant-design/icons'
 import "./index.scss";
 import { useState } from "react";
 import RouterObject from "../router/index";
@@ -24,22 +25,51 @@ const LayoutComponent = () => {
   const [siderList, setSiderlist] = useState(() => {
     return [
       {
-        label: "菜单1",
-        key: "1/home"
+        label: (
+          <Space>
+            <OrderedListOutlined />
+            下拉菜单
+          </Space>
+        ),
+        key: "/dropDown"
       },
       {
-        label: "菜单2",
-        key: "2/useDome"
+        label: "分页",
+        key: "/pagination"
       }
     ]
   })
-
+  const [ siderDefault, setSiderDefault] = useState([''])
   const topSelect = (val) => {
-    navigate(val.key)
+    if(val.key == '/home') {
+      setSiderlist([
+        {
+          label: "数据分析",
+          key: "/echarts"
+        }
+      ])
+      setSiderDefault([''])
+    } else {
+      setSiderlist([
+        {
+          label: (
+            <Space>
+              <OrderedListOutlined />
+              下拉菜单
+            </Space>
+          ),
+          key: "/dropDown"
+        },
+        {
+          label: "分页",
+          key: "/pagination"
+        }
+      ])
+    }
   }
 
   const siderSelect = (val) => {
-    console.log(val, 'siderSelect')
+    navigate(val.key)
   }
 
 
@@ -58,11 +88,10 @@ const LayoutComponent = () => {
         <Sider width={200} className="sider-wrap">
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={siderDefault}
             style={{ height: '100%', borderRight: 0 }}
             items={siderList}
-            onSelect={() => siderSelect(navigate)}
+            onSelect={siderSelect}
           />
         </Sider>
         <Layout>
